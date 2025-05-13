@@ -18,8 +18,8 @@ export function makeReadwiseNote(noteMd = '', tags = []) {
 }
 
 export function cleanTag(tag) {
-  const cleanedTag = tag.replace(/[\s.]+/g, '_').toLowerCase();
-  return `.gl_${cleanedTag}`;
+  const cleanedTag = tag.replace(/[\s."]+/g, '-').toLowerCase();
+  return `.gl/${cleanedTag}`;
 }
 
 export function cleanMd(md) {
