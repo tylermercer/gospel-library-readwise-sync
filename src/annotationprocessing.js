@@ -30,6 +30,7 @@ export function assembleHighlights(annotations, contents) {
       });
       const source = contentObjs[0] ? getSourceInfo(a, contentObjs[0]) : undefined;
       const sourceLink = uris[0] ? uriToUrl(uris[0]) : undefined;
+      source.url = sourceLink;
       const sourceMd = sourceLink && `\n\n[Source](${sourceLink})`;
       const mdParts = contentObjs
         .flatMap(c => c.content)
@@ -52,7 +53,7 @@ export function assembleHighlights(annotations, contents) {
       })
         .map(withoutPlaceholders)
         .map(s => s.trim())
-        .join('\n\n') + sourceMd;
+        .join('\n\n');
       const noteMd = a.note?.content ? noteToMarkdown(a.note.content) : undefined;
       /** @type {string[]} tags */
       const tags = a.tags?.map(t => t.name) ?? [];
