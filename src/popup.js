@@ -61,10 +61,10 @@ sync.onclick = async () => {
     /** @type {(import('./readwise/api.js').Highlight)[]} */
     const readwiseHighlights = hs.map(h => {
       const highlightUrl = new URL(
-        h.source?.url ?? 
+        h.sourceLink || 
         'https://www.churchofjesuschrist.org/notes?lang=eng'
       );
-      highlightUrl.searchParams.append(h.source ? '__annotationId' 'note', h.id);
+      highlightUrl.searchParams.append(h.sourceLink ? '__annotationId' 'note', h.id);
       return ({
         highlighted_at: h.created.toISOString(),
         highlight_url: highlightUrl.toString(),
