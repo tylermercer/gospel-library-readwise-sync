@@ -30,8 +30,6 @@ export function assembleHighlights(annotations, contents) {
       });
       const source = contentObjs[0] ? getSourceInfo(a, contentObjs[0]) : undefined;
       const sourceLink = uris[0] ? uriToUrl(uris[0]) : undefined;
-      source.url = sourceLink;
-      const sourceMd = sourceLink && `\n\n[Source](${sourceLink})`;
       const mdParts = contentObjs
         .flatMap(c => c.content)
         .map(c => c.markup)
