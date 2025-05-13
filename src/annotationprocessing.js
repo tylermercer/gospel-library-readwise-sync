@@ -67,6 +67,7 @@ export function assembleHighlights(annotations, contents) {
         highlightMd,
         noteMd,
         tags,
+        sourceLink,
       }
     } catch (err) {
       // possibly a missing URI, if content was moved. Not sure how to recover from that. (😢)
