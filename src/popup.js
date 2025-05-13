@@ -59,16 +59,23 @@ sync.onclick = async () => {
     const accessToken = getReadwiseAccessToken();
 
     /** @type {(import('./readwise/api.js').Highlight)[]} */
-    const readwiseHighlights = hs.map(h => ({
-      highlighted_at: h.created.toISOString(),
-      highlight_url: 'https://www.churchofjesuschrist.org/notes?lang=eng&note=' + encodeURIComponent(h.id),
-      text: cleanMd(h.highlightMd),
-      source_url: h.source?.url,
-      author: h.source?.author,
-      title: h.source?.title,
-      source_type: h.source?.type,
-      note: makeReadwiseNote(h.noteMd, h.tags),
-    }))
+    const readwiseHighlights = hs.map(h => {
+      const highlightUrl = new URL(
+        h.source?.url ?? 
+        'https://www.churchofjesuschrist.org/notes?lang=eng'
+      );
+      highlightUrl.searchParams.append(h.source ? '__annotationId' 'note', h.id);
+      return ({
+        highlighted_at: h.created.toISOString(),
+        highlight_url: highlightUrl.toString(),
+        text: cleanMd(h.highlightMd),
+        source_url: h.source?.url,
+        author: h.source?.author,
+        title: h.source?.title,
+        source_type: h.source?.type,
+        note: makeReadwiseNote(h.noteMd, h.tags),
+      })
+    })
 
     // Uncomment for debugging
     // if (window) return println(readwiseHighlights);
